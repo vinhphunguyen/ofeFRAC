@@ -1,0 +1,28 @@
+Go to folder tests/ for some examples.
+
+1. tests/linear-elasticity: stress analysis of a linear elastic solid
+2. tests/delamination:      delamination of a DCB using zero-thickness interface elements
+3. tests/damage:            fracture of a four-point bending test using the gradient enhanced damage model
+4. tests/soil:              soil consolidation test with u-p formulation of poro-elasticity
+
+For any test, the folder contains:
+1. *.geo : Gmsh geometry file 
+2. *.msh : Gmsh msh file (these 2 files were created using Gmsh)
+3. *.mesh: jive mesh file (converted from *.msh using ciGEN)
+4. *.data: jive data file: mesh + boundary conditions 
+5. *.pro : jive properties file
+
+To run a test do:
+
+../../standard/fefrac *.pro
+
+or with the optimised executable
+
+../../standard/fefrac-opt *.pro
+
+VTU files will be created, which can be opened using PARAVIEW.
+
+----------------------------------------------------------------------
+Phu Nguyen
+Monash University
+4 Feb 2020

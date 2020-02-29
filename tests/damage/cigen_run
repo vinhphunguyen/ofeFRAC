@@ -1,0 +1,2 @@
+gmsh fb.geo -2 -o fb.msh
+~/fefrac/CiGen/interface-elem --mesh-file fb.msh --out-file fb.mesh --converter

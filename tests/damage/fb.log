@@ -1,0 +1,21 @@
+Log file created on Thu Feb 20 09:15:09 +07 2020.
+
+*** ERROR: Fatal configuration error
+
+*** ERROR:   Type    : jem::IllegalInputException
+*** ERROR:   Context : property `extraModules.solver.type'
+*** ERROR:   Message : unknown module: `Nonli'.
+*** ERROR:             Available types are: `Arclen', `Chain', `Checkpoint', `Control', `Debug',
+*** ERROR:             `Display', `Eigensolve', `Exit', `FemView', `FlexArclen', `Graph', `Groupgen',
+*** ERROR:             `Info', `Init', `Linsolve', `LoadScale', `Loop', `Newmark', `None', `Nonlin',
+*** ERROR:             `Output', `Paraview', `Park3', `Report', `Sample', `Step', `Step2', `Userconf',
+*** ERROR:             `View', `jive::app::ChainModule', `jive::app::CheckpointModule', `jive::app::ControlModule',
+*** ERROR:             `jive::app::DebugModule', `jive::app::DummyModule', `jive::app::ExitModule',
+*** ERROR:             `jive::app::GroupgenModule', `jive::app::InfoModule', `jive::app::InitModule',
+*** ERROR:             `jive::app::LoadScaleModule', `jive::app::LoopModule', `jive::app::OutputModule',
+*** ERROR:             `jive::app::ReportModule', `jive::app::SampleModule', `jive::app::UserconfModule',
+*** ERROR:             `jive::gl::DisplayModule', `jive::gl::FemViewModule', `jive::gl::GraphModule',
+*** ERROR:             `jive::gl::ViewModule', `jive::implict::ArclenModule', `jive::implict::EigensolveModule',
+*** ERROR:             `jive::implict::LinsolveModule', `jive::implict::NewmarkModule', `jive::implict::NonlinModule',
+*** ERROR:             `jive::implict::Park3Module'
+

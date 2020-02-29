@@ -1,0 +1,51 @@
+1. Install Jem/Jive
+
++ Download jem/jive from https://jive.dynaflow.com
++ keep the source code of jem and jive in ~/package/ (any directory of your choice)
++ if source code are .tar files. then untar them:: tar -xvf jem-xx.tar and tar -xvf jive-xx.tar
++ add the path in ~/.bashrc or ~/.zshrc (if you are using zsh)::
+	vim ~/.zshrc
+	(following commands without any spaces, 3.0 is the version)
+	export JEMDIR=~/packages/jem-3.0/
+	export JIVEDIR=~/packages/jive-3.0/
++ configure and make
+	cd ~/packages/jem-3.0/
+	./configure; 
+	make -j8 (8 is the number of processors allocated for compilation)
+	cd ~/packages/jive-3.0/
+	./configure; 
+	make -j8
+
+2. Install ofeFrac 
+	+ get the latest source code from https://github.com/vinhphunguyen/ofeFRAC 
+	+ go to ofefrac/src/standard/: make clean; make -j8;(and/or 'make opt -j8':for opt run.)
+	* never forget to take the backup of your makefile when replacing new sourec code.	
+
+3. Makefile	for macOS 
+
+program = feFRAC
+
+subdirs = ../src/util  ../src/material ../src/model ../src/module ../src/femodel
+
+include $(JIVEDIR)/makefiles/prog.mk
+include $(JIVEDIR)/makefiles/packages/*.mk
+
+SYS_LIBDIRS = /usr/local/lib/
+
+MY_INCDIRS = /Users/vingu/my-codes/feFRAC/src /usr/local/include #/usr/local/include/vtk-7.1
+MY_CXX_STD_FLAGS=-stdlib=libc++ -std=c++11
+MY_CXX_LNK_FLAGS=-lc++ #-lvtkCommonDataModel-7.1.1 -lvtkCommonCore-7.1.1 -lvtkIOXML-7.1.1
+
+4. Makefile for Linux (Ubuntu)
+
+program = fefrac #choose name of executable
+subdirs = ../src/util  ../src/material ../src/model ../src/module ../src/femodel
+include $(JIVEDIR)/makefiles/prog.mk 
+include $(JIVEDIR)/makefiles/packages/*.mk 
+MY_INCDIRS = ~/ofefrac/src  
+
+----------------------------------------------------------------------
+Phu Nguyen
+Monash University
+4 Feb 2020
+ 
