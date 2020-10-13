@@ -1,0 +1,12 @@
+
+<!-- Include the finite element mesh data from another file -->
+
+<Include source="plate-hole.mesh"/>
+
+<!-- Define the constraints (supports). -->
+
+<NodeConstraints>
+
+  dy[bottom] = 0.0;
+  dx[left]   = 0.0;
+</NodeConstraints>

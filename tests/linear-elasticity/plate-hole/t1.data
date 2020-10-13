@@ -1,0 +1,26 @@
+
+<!-- Include the finite element mesh data from another file -->
+
+<Include source="t1.mesh"/>
+
+<!-- Define the constraints (supports). -->
+
+<NodeConstraints>
+
+  dy[bottom_edge] = 0.0;
+  dx[left_edge]   = 0.0;
+  
+
+</NodeConstraints>
+
+<!-- Define a table with external loads -->
+
+<NodeTable name="load">
+
+  <Section columns="dx">
+
+    right_edge 1.0;
+
+  </Section>
+
+</NodeTable>
