@@ -1,0 +1,27 @@
+
+<!-- Include the finite element mesh data from another file -->
+
+<Include source="four-bending1.mesh"/>
+
+<!-- Define the constraints (supports). -->
+
+<NodeConstraints>
+
+  dx[fix] = 0.0;
+  dy[fix] = 0.0;
+  dy[roller] = 0.0;
+
+</NodeConstraints>
+
+<!-- Define a table with external loads -->
+
+<NodeTable name="load">
+
+  <Section columns="dy">
+
+    disp -1.0;
+
+  </Section>
+
+</NodeTable>
+

@@ -1,0 +1,961 @@
+
+Reading data from `four-bending.data' ...
+
+  ...ding.data, line 4: reading tag `Include' ...
+  ...ing1.mesh, line 1: reading from `four-bending1.mesh' ...
+  ...ing1.mesh, line 1: reading tag `Nodes' ...
+  ...ing1.mesh, line 530: done reading tag `Nodes'
+  ...ing1.mesh, line 531: reading tag `Elements' ...
+  ...ing1.mesh, line 1503: done reading tag `Elements'
+  ...ing1.mesh, line 1505: reading tag `ElementGroup' ...
+  ...ing1.mesh, line 1507: done reading tag `ElementGroup'
+  ...ing1.mesh, line 1509: reading tag `ElementGroup' ...
+  ...ing1.mesh, line 1511: done reading tag `ElementGroup'
+  ...ing1.mesh, line 1513: reading tag `NodeGroup' ...
+  ...ing1.mesh, line 1515: done reading tag `NodeGroup'
+  ...ing1.mesh, line 1517: reading tag `NodeGroup' ...
+  ...ing1.mesh, line 1519: done reading tag `NodeGroup'
+  ...ing1.mesh, line 1521: reading tag `NodeGroup' ...
+  ...ing1.mesh, line 1523: done reading tag `NodeGroup'
+  ...ing1.mesh, line 1525: reading tag `NodeGroup' ...
+  ...ing1.mesh, line 1527: done reading tag `NodeGroup'
+  ...ing1.mesh, line 1530: reading tag `NodeGroup' ...
+  ...ing1.mesh, line 1532: done reading tag `NodeGroup'
+  ...ding.data, line 4: leaving `four-bending1.mesh'.
+  ...ding.data, line 8: reading tag `NodeConstraints' ...
+  ...ding.data, line 14: done reading tag `NodeConstraints'
+  ...ding.data, line 18: reading tag `NodeTable' ...
+  ...ding.data, line 20: reading tag `Section' ...
+  ...ding.data, line 24: done reading tag `Section'
+  ...ding.data, line 26: done reading tag `NodeTable'
+
+Created a new model named `model'.
+[ 0, 1 ]
+Data summary:
+
+  nodes ......................................... 528
+  node dofs ..................................... 1056
+  node constraints .............................. 3
+  node groups ................................... 7
+  node tables ................................... 1
+  node data bases ............................... 0
+  elements ...................................... 971
+  element groups ................................ 4
+  element tables ................................ 0
+  element data bases ............................ 0
+  boundaries .................................... 0
+  boundary groups ............................... 2
+  boundary tables ............................... 0
+  boundary data bases ........................... 0
+  functions ..................................... 0
+
+extraModules.view.mesh : building graphics mesh ...
+extraModules.view.mesh : ready; graphics mesh contains:
+
+  vertices  ...... 528
+  faces     ...... 966
+  triangles ...... 966
+  lines     ...... 0
+  edges     ...... 1493
+
+Application configuration data:
+
+  log	=
+  {
+    file	= "-four-bending.log";
+    rank	= 0;
+    pattern	= "*.info";
+    logPrefix	= "";
+    outPrefix	= "";
+    warnPrefix	= "*** WARNING: ";
+    errPrefix	= "*** ERROR: ";
+  };
+  extraModules	=
+  {
+    solver	=
+    {
+      maxIter	= 20;
+      tiny	= 1.00000e-300;
+      precision	= 1.00000e-05;
+      maxIncr	= 10.0000;
+      lineSearch	= false;
+      deltaCons	= false;
+      bounds	= [];
+      updateWhen	= none;
+      solver	=
+      {
+        type	= "SparseLU";
+        lenient	= true;
+        precision	= 5.00000e-06;
+        zeroThreshold	= 1.49012e-08;
+        maxZeroPivots	= 0;
+        pivotThreshold	= 0.100000;
+        reorder	= "Matrix";
+        printPivots	= false;
+      };
+    };
+    graph	=
+    {
+      sampleWhen	= true;
+      dataSets	= [ "loadDisp" ];
+      window	=
+      {
+        bgColor	= "white";
+        title	= "extraModules.graph";
+        width	= 400;
+        height	= 200;
+      };
+      camera	=
+      {
+        range	= 1.00000;
+        position	= [ -0.00000, -0.00000 ];
+        zoom	= 0.00000;
+        quality	= 1;
+        autoQuality	= false;
+      };
+      graph	=
+      {
+        hidden	= false;
+        width	= 1.00000;
+        height	= 1.00000;
+        showKey	= true;
+        keyPos	= [ 0.900000, 0.900000 ];
+        title	= "";
+        xLabel	= "";
+        yLabel	= "";
+        scaleStep	= 0.100000;
+        xRange	= "auto";
+        yRange	= "auto";
+      };
+      loadDisp	=
+      {
+        key	= "Load-displacement curve";
+        maxPoints	= -1;
+        pointStyle	= none;
+        lineWidth	= 1.20000;
+        lineColor	= "black";
+        xData	= "-model.model.monitor.state.dy";
+        yData	= "-0.05*model.model.lodi.load[1]";
+      };
+    };
+    lodi	=
+    {
+      file	= "four-bending-lodi1.dat";
+      header	= "  uy | fy ";
+      separator	= " ";
+      append	= false;
+      precision	= 8;
+      dataSets	= [ "-model.model.monitor.state.dy", "-0.05* model.model.lodi.load[1]" ];
+      sampleWhen	= true;
+    };
+    vtk	=
+    {
+      fileName	= "four-bending";
+      data	= [ "damage" ];
+      interval	= 50;
+      table	= true;
+      elements	= "bulk";
+    };
+    view	=
+    {
+      snapFile	= "snapshot%2i.png";
+      configFile	= "four-bending.view";
+      updateWhen	= "(extraModules.view.updateLoad < 0.1) && (extraModules.view.renderLoad < 0.5)";
+      snapWhen	= false;
+      offScreen	= false;
+      camera	=
+      {
+        type	= "Perspective";
+        farClip	= 10.0000;
+        nearClip	= 0.500000;
+        viewAngle	= 40.0000;
+        position	= [ -0.00000, -0.00000, 3.00000 ];
+        zoom	= 0.00000;
+        quality	= 1;
+        autoQuality	= false;
+      };
+      disp	=
+      {
+        type	= "Vector";
+        vector	= "state";
+        nullValue	= 0.00000;
+      };
+      damage	=
+      {
+        type	= "Table";
+        table	= "nodes/damage";
+        tableType	= "Dense";
+        nullValue	= 0.00000;
+      };
+      dataSets	= [ "disp", "damage" ];
+      window	=
+      {
+        bgColor	= "white";
+        title	= "feFRAC.extraModules.view";
+        width	= 900;
+        height	= 300;
+      };
+      world	=
+      {
+        scale	= 1.00000;
+        rotmat	= [ 1.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 1.00000 ];
+        translation	= [ 0.00000, 0.00000, 0.00000 ];
+      };
+      lights	=
+      {
+        light0	=
+        {
+          color	= "white20";
+          direction	= [ -1.00000, -0.00000, -0.00000 ];
+          enable	= true;
+        };
+        light1	=
+        {
+          color	= "white20";
+          direction	= [ -0.00000, -1.00000, -0.00000 ];
+          enable	= true;
+        };
+        light2	=
+        {
+          color	= "white";
+          direction	= [ -0.00000, -0.00000, -1.00000 ];
+          enable	= true;
+        };
+        ambient	= "white20";
+      };
+      markerStyles	=
+      {
+        points	=
+        {
+          size	= 3.00000;
+          color	= "black";
+        };
+        orbs	=
+        {
+          size	= -0.0100000;
+          quality	= 1;
+          color	= "gold";
+        };
+        numbers	=
+        {
+          font	= "proportional large";
+          color	= "black";
+        };
+        circles	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        diamonds	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        discs	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        squares	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        styles	= [];
+      };
+      palettes	=
+      {
+        linear	=
+        {
+          minValue	= 0.00000;
+          maxValue	= 1.00000;
+          minColor	= "blue";
+          maxColor	= "red";
+        };
+        rainbow	=
+        {
+          minValue	= 0.00000;
+          maxValue	= 1.00000;
+        };
+        custom	=
+        {
+          colors	= [ "blue", "green", "yellow", "orange", "red" ];
+          ranges	= [ 0.00000, 0.200000, 0.400000, 0.600000, 0.800000, 1.00000 ];
+          hideMinMax	= false;
+        };
+        palettes	= [];
+      };
+      mesh	=
+      {
+        elements	= "all";
+        scale	= 1.00000;
+        rotmat	= [ 1.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 1.00000 ];
+        translation	= [ 0.00000, 0.00000, 0.00000 ];
+        material	=
+        {
+          shininess	= 0.00000;
+          specular	= "black";
+        };
+        showEdges	= true;
+        showLines	= true;
+        showFaces	= true;
+        pointSize	= 1.00000;
+        lineWidth	= 1.00000;
+        shadeModel	= "Flat";
+        color	= "gray";
+        edgeColor	= "black";
+        nodeColor	= "black";
+        hidden	= false;
+        deformation	=
+        {
+          scale	= 80.0000;
+          autoScale	= false;
+          scaleStep	= 0.100000;
+          dx	= "disp[dx]";
+          dy	= "disp[dy]";
+          dz	= "0.000";
+        };
+        colors	=
+        {
+          palette	= "custom";
+          title	= "";
+          data	= "damage";
+          autoScale	= false;
+          scaleStep	= 0.100000;
+        };
+      };
+    };
+  };
+  control	=
+  {
+    prompt	= ">";
+    cmdFile	= "-";
+    fgMode	= true;
+    pause	= 0.00000;
+    runWhile	= "i < 0";
+  };
+  display	=
+  {
+    offScreen	= false;
+  };
+  input	=
+  {
+    storageMode	= "Default";
+    file	= "four-bending.data";
+    maxParts	= 0;
+    tableFilter	= "*";
+    dbaseFilter	= "*";
+    funcFilter	= "*";
+  };
+  storageMode	= "Default";
+  shapeTable	=
+  {
+    type	= "Auto";
+    boundaryElems	= "";
+    interfaceElems	= "";
+    maxPrecision	= 0;
+  };
+  model	=
+  {
+    type	= "Matrix";
+    model	=
+    {
+      type	= "Multi";
+      models	= [ "all", "load", "lodi", "monitor" ];
+      all	=
+      {
+        type	= "NonLocalDamage";
+        elements	= "bulk";
+        shape	=
+        {
+          type	= "Triangle3";
+          shapeFuncs	=
+          {
+            type	= "Linear";
+          };
+          intScheme	= [ "Gauss1", "Gauss2", "Gauss2", "Gauss2" ];
+        };
+        materials	= [ "mat1" ];
+        mat1	=
+        {
+          type	= "Damage";
+          dim	= 2;
+          young	= 40000.0;
+          poisson	= 0.200000;
+          state	= 1;
+          rho	= 1.00000;
+          softening	= 2;
+          equistrain	= 1;
+          kappaI	= 7.50000e-05;
+          kappaC	= 0.00000;
+          alpha	= 0.920000;
+          beta	= 300.000;
+          eta	= 10.0000;
+          damThreshold	= 0.100000;
+          elements	= "bulk";
+        };
+        weightFunc	= " let radius = 2.8284; return (1.0 - (r/radius)^2)^2";
+      };
+      load	=
+      {
+        type	= "LoadScale";
+        model	=
+        {
+          type	= "Constraints";
+          conTable	= "load";
+        };
+        loadCase	= "load";
+        loadScale	= 1.00000;
+        scaleFunc	= "1e-3 * (i)";
+      };
+      lodi	=
+      {
+        type	= "Lodi";
+        evalMasterDof	= false;
+      };
+      monitor	=
+      {
+        type	= "Monitor";
+      };
+    };
+    debug	= 0;
+    linear	= false;
+    matrix0	=
+    {
+      type	= "Sparse";
+      symmetric	= false;
+      optimize	= "Runtime";
+    };
+  };
+  init	=
+  {
+    reorder	= false;
+    vectors	= [];
+  };
+
+*** WARNING: Unknown properties:
+
+*** WARNING:   extraModules.solver.solver.useThreads
+*** WARNING:   model.model.all.averaging
+*** WARNING:   model.model.all.thickness
+*** WARNING:   mpart
+*** WARNING:   mpart.overlap
+
+*** WARNING: Initialization phase completed with warnings.
+
+  Elapsed CPU  time : 0.1200 seconds.
+  Elapsed real time : 0.1732 seconds.
+
+Iteration       : 0
+Elapsed runtime : 0.3261 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+model.model.all : updating integration point pairs ...
+model.model.all : number of integration point pairs = 1698
+module `extraModules.solver' : residual scale factor = 1.5568e+00
+module `extraModules.solver' : iter = 1, scaled residual = 5.2973e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 1
+Elapsed runtime : 7.153 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.1137e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.8826e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 2
+Elapsed runtime : 7.167 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.6705e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.1153e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 3
+Elapsed runtime : 7.174 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 6.2274e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.7594e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 4
+Elapsed runtime : 7.182 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 7.7842e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.5770e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 5
+Elapsed runtime : 7.196 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 9.3410e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.4193e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 6
+Elapsed runtime : 7.214 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.0898e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.4394e-13
+The Newton-Raphson solver converged in 1 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 7
+Elapsed runtime : 7.245 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.2461e+01
+module `extraModules.solver' : iter = 1, scaled residual = 3.1504e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.2405e-03
+module `extraModules.solver' : iter = 3, scaled residual = 2.7137e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 8
+Elapsed runtime : 7.263 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.3973e+01
+module `extraModules.solver' : iter = 1, scaled residual = 2.9914e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.0977e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.7071e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 9
+Elapsed runtime : 7.286 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.5461e+01
+module `extraModules.solver' : iter = 1, scaled residual = 2.9186e-02
+module `extraModules.solver' : iter = 2, scaled residual = 7.5280e-04
+module `extraModules.solver' : iter = 3, scaled residual = 9.9922e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 10
+Elapsed runtime : 7.303 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.6922e+01
+module `extraModules.solver' : iter = 1, scaled residual = 3.9175e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.0272e-03
+module `extraModules.solver' : iter = 3, scaled residual = 2.0244e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 11
+Elapsed runtime : 7.321 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.8333e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7698e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.8124e-04
+module `extraModules.solver' : iter = 3, scaled residual = 2.5975e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 12
+Elapsed runtime : 7.342 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.9743e+01
+module `extraModules.solver' : iter = 1, scaled residual = 3.1686e-02
+module `extraModules.solver' : iter = 2, scaled residual = 6.6313e-04
+module `extraModules.solver' : iter = 3, scaled residual = 5.9761e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 13
+Elapsed runtime : 7.361 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.1102e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.8355e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.4561e-03
+module `extraModules.solver' : iter = 3, scaled residual = 2.4686e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 14
+Elapsed runtime : 7.383 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.2433e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.9675e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.3668e-04
+module `extraModules.solver' : iter = 3, scaled residual = 4.6097e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 15
+Elapsed runtime : 7.409 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.3745e+01
+module `extraModules.solver' : iter = 1, scaled residual = 3.2330e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.0191e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.3552e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 16
+Elapsed runtime : 7.434 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.4988e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7990e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.2952e-04
+module `extraModules.solver' : iter = 3, scaled residual = 6.8818e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 17
+Elapsed runtime : 7.460 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.6208e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7272e-02
+module `extraModules.solver' : iter = 2, scaled residual = 3.5130e-04
+module `extraModules.solver' : iter = 3, scaled residual = 6.2197e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 18
+Elapsed runtime : 7.482 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.7378e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.0837e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.2980e-04
+module `extraModules.solver' : iter = 3, scaled residual = 2.1678e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 19
+Elapsed runtime : 7.504 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.8528e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.9778e-02
+module `extraModules.solver' : iter = 2, scaled residual = 9.0753e-04
+module `extraModules.solver' : iter = 3, scaled residual = 1.6467e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+*** WARNING: extraModules.lodi : no more warnings will be printed
+
+Iteration       : 20
+Elapsed runtime : 7.541 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.9609e+01
+module `extraModules.solver' : iter = 1, scaled residual = 9.2577e-03
+module `extraModules.solver' : iter = 2, scaled residual = 6.2071e-05
+module `extraModules.solver' : iter = 3, scaled residual = 3.0190e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 21
+Elapsed runtime : 7.563 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.0680e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7581e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.8437e-03
+module `extraModules.solver' : iter = 3, scaled residual = 6.2277e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 22
+Elapsed runtime : 7.590 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.1664e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.3648e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.2457e-04
+module `extraModules.solver' : iter = 3, scaled residual = 6.6624e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 23
+Elapsed runtime : 7.614 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.2610e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.2299e-02
+module `extraModules.solver' : iter = 2, scaled residual = 7.3064e-05
+module `extraModules.solver' : iter = 3, scaled residual = 1.3784e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 24
+Elapsed runtime : 7.644 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.3530e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.6458e-02
+module `extraModules.solver' : iter = 2, scaled residual = 3.9974e-04
+module `extraModules.solver' : iter = 3, scaled residual = 9.5889e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 25
+Elapsed runtime : 7.671 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.4377e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7931e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.4535e-04
+module `extraModules.solver' : iter = 3, scaled residual = 1.0525e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 26
+Elapsed runtime : 7.711 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.5161e+01
+module `extraModules.solver' : iter = 1, scaled residual = 9.3274e-03
+module `extraModules.solver' : iter = 2, scaled residual = 5.6775e-05
+module `extraModules.solver' : iter = 3, scaled residual = 5.2321e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 27
+Elapsed runtime : 7.735 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.5899e+01
+module `extraModules.solver' : iter = 1, scaled residual = 6.0095e-03
+module `extraModules.solver' : iter = 2, scaled residual = 3.2471e-04
+module `extraModules.solver' : iter = 3, scaled residual = 8.7269e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 28
+Elapsed runtime : 7.763 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.6610e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.3948e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.6212e-04
+module `extraModules.solver' : iter = 3, scaled residual = 9.6389e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 29
+Elapsed runtime : 7.790 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.7248e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.4366e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.3625e-04
+module `extraModules.solver' : iter = 3, scaled residual = 1.2052e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 30
+Elapsed runtime : 7.819 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.7824e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.5096e-02
+module `extraModules.solver' : iter = 2, scaled residual = 4.9110e-04
+module `extraModules.solver' : iter = 3, scaled residual = 2.5388e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 31
+Elapsed runtime : 7.848 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.8352e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.1672e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.4062e-04
+module `extraModules.solver' : iter = 3, scaled residual = 9.7066e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 32
+Elapsed runtime : 7.883 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.8833e+01
+module `extraModules.solver' : iter = 1, scaled residual = 2.2007e-02
+module `extraModules.solver' : iter = 2, scaled residual = 7.0298e-04
+module `extraModules.solver' : iter = 3, scaled residual = 4.1927e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 33
+Elapsed runtime : 7.912 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.9195e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.7793e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.9657e-04
+module `extraModules.solver' : iter = 3, scaled residual = 8.7122e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 34
+Elapsed runtime : 7.944 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.9584e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.8989e-02
+module `extraModules.solver' : iter = 2, scaled residual = 3.7963e-04
+module `extraModules.solver' : iter = 3, scaled residual = 1.4100e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 35
+Elapsed runtime : 7.971 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.9880e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.5228e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.6781e-03
+module `extraModules.solver' : iter = 3, scaled residual = 3.0660e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 36
+Elapsed runtime : 8.008 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0113e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.8256e-02
+module `extraModules.solver' : iter = 2, scaled residual = 2.1899e-03
+module `extraModules.solver' : iter = 3, scaled residual = 4.0883e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 37
+Elapsed runtime : 8.033 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0285e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.5070e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.9911e-04
+module `extraModules.solver' : iter = 3, scaled residual = 6.4907e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 38
+Elapsed runtime : 8.060 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0401e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.1371e-02
+module `extraModules.solver' : iter = 2, scaled residual = 1.0633e-04
+module `extraModules.solver' : iter = 3, scaled residual = 8.4261e-07
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 39
+Elapsed runtime : 8.084 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0475e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.2090e-02
+module `extraModules.solver' : iter = 2, scaled residual = 5.0201e-04
+module `extraModules.solver' : iter = 3, scaled residual = 1.8140e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+Iteration       : 40
+Elapsed runtime : 8.111 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0493e+01
+module `extraModules.solver' : iter = 1, scaled residual = 1.4949e-02
+module `extraModules.solver' : iter = 2, scaled residual = 5.5715e-04
+module `extraModules.solver' : iter = 3, scaled residual = 3.4013e-06
+The Newton-Raphson solver converged in 3 iterations
+
+*** WARNING: data set `extraModules.graph.loadDisp' : error evaluating expression `-model.model.monitor.state.dy': undefined variable: model.model.monitor.state.dy
+
+*** WARNING: Runtime phase completed with warnings.
+
+  Elapsed CPU  time : 1.590 seconds.
+  Elapsed real time : 20.88 seconds.
+
+Shutdown phase completed successfully.
+
+  Elapsed CPU  time : 1.600 seconds.
+  Elapsed real time : 20.88 seconds.
+
+*** WARNING: One or more warnings have been printed.
+
