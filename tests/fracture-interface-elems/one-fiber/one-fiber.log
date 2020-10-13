@@ -1,0 +1,808 @@
+
+Reading data from `one-fiber.data' ...
+
+  ...iber.data, line 4: reading tag `Include' ...
+  ...iber.mesh, line 1: reading from `one-fiber.mesh' ...
+  ...iber.mesh, line 1: reading tag `Nodes' ...
+  ...iber.mesh, line 3638: done reading tag `Nodes'
+  ...iber.mesh, line 3639: reading tag `Elements' ...
+  ...iber.mesh, line 10750: done reading tag `Elements'
+  ...iber.mesh, line 10752: reading tag `ElementGroup' ...
+  ...iber.mesh, line 10754: done reading tag `ElementGroup'
+  ...iber.mesh, line 10756: reading tag `ElementGroup' ...
+  ...iber.mesh, line 10758: done reading tag `ElementGroup'
+  ...iber.mesh, line 10760: reading tag `ElementGroup' ...
+  ...iber.mesh, line 10762: done reading tag `ElementGroup'
+  ...iber.mesh, line 10765: reading tag `ElementGroup' ...
+  ...iber.mesh, line 10767: done reading tag `ElementGroup'
+  ...iber.mesh, line 10769: reading tag `ElementGroup' ...
+  ...iber.mesh, line 10771: done reading tag `ElementGroup'
+  ...iber.mesh, line 10773: reading tag `ElementDatabase' ...
+  ...iber.mesh, line 10774: reading tag `Column' ...
+  ...iber.mesh, line 10935: done reading tag `Column'
+  ...iber.mesh, line 10936: done reading tag `ElementDatabase'
+  ...iber.mesh, line 10938: reading tag `NodeGroup' ...
+  ...iber.mesh, line 10940: done reading tag `NodeGroup'
+  ...iber.mesh, line 10942: reading tag `NodeGroup' ...
+  ...iber.mesh, line 10944: done reading tag `NodeGroup'
+  ...iber.mesh, line 10946: reading tag `NodeGroup' ...
+  ...iber.mesh, line 10948: done reading tag `NodeGroup'
+  ...iber.mesh, line 10950: reading tag `NodeGroup' ...
+  ...iber.mesh, line 10952: done reading tag `NodeGroup'
+  ...iber.data, line 4: leaving `one-fiber.mesh'.
+  ...iber.data, line 8: reading tag `NodeConstraints' ...
+  ...iber.data, line 13: done reading tag `NodeConstraints'
+  ...iber.data, line 17: reading tag `NodeTable' ...
+  ...iber.data, line 19: reading tag `Section' ...
+  ...iber.data, line 23: done reading tag `Section'
+  ...iber.data, line 25: done reading tag `NodeTable'
+
+The area of          model.model.model.bulk is: 1.000
+Minimum area         model.model.model.bulk is: 1.891e-05
+Minimum element size model.model.model.bulk is: 0.004348
+Number of interface elements ..... 160
+Number of node per element   ..... 4
+
+Created a new model named `model'.
+
+Data summary:
+
+  nodes ......................................... 3636
+  node dofs ..................................... 7272
+  node constraints .............................. 12
+  node groups ................................... 6
+  node tables ................................... 1
+  node data bases ............................... 0
+  elements ...................................... 7110
+  element groups ................................ 7
+  element tables ................................ 0
+  element data bases ............................ 1
+  boundaries .................................... 0
+  boundary groups ............................... 2
+  boundary tables ............................... 0
+  boundary data bases ........................... 0
+  functions ..................................... 0
+
+extraModules.view.mesh : building graphics mesh ...
+extraModules.view.mesh : ready; graphics mesh contains:
+
+  vertices  ...... 3796
+  faces     ...... 7070
+  triangles ...... 7550
+  lines     ...... 0
+  edges     ...... 10865
+
+Application configuration data:
+
+  log	=
+  {
+    file	= "-one-fiber.log";
+    rank	= 0;
+    pattern	= "*.info";
+    logPrefix	= "";
+    outPrefix	= "";
+    warnPrefix	= "*** WARNING: ";
+    errPrefix	= "*** ERROR: ";
+  };
+  extraModules	=
+  {
+    solver	=
+    {
+      maxIter	= 20;
+      tiny	= 1.00000e-300;
+      precision	= 1.00000e-05;
+      maxIncr	= 10.0000;
+      lineSearch	= false;
+      deltaCons	= false;
+      bounds	= [];
+      updateWhen	= none;
+      solver	=
+      {
+        type	= "SparseLU";
+        lenient	= true;
+        precision	= 5.00000e-06;
+        zeroThreshold	= 1.49012e-08;
+        maxZeroPivots	= 0;
+        pivotThreshold	= 0.100000;
+        reorder	= "Matrix";
+        printPivots	= false;
+      };
+    };
+    graph	=
+    {
+      sampleWhen	= true;
+      dataSets	= [ "loadDisp" ];
+      window	=
+      {
+        bgColor	= "white";
+        title	= "extraModules.graph";
+        width	= 400;
+        height	= 200;
+      };
+      camera	=
+      {
+        range	= 1.00000;
+        position	= [ -0.00000, -0.00000 ];
+        zoom	= 0.00000;
+        quality	= 1;
+        autoQuality	= false;
+      };
+      graph	=
+      {
+        hidden	= false;
+        width	= 1.00000;
+        height	= 1.00000;
+        showKey	= true;
+        keyPos	= [ 0.900000, 0.900000 ];
+        title	= "";
+        xLabel	= "";
+        yLabel	= "";
+        scaleStep	= 0.100000;
+        xRange	= "auto";
+        yRange	= "auto";
+      };
+      loadDisp	=
+      {
+        key	= "Load-displacement curve";
+        maxPoints	= -1;
+        pointStyle	= none;
+        lineWidth	= 1.20000;
+        lineColor	= "black";
+        xData	= "model.model.model.lodi.disp[0]";
+        yData	= "model.model.model.lodi.load[0]";
+      };
+    };
+    paraview	=
+    {
+      fileName	= "one-fiber";
+      data	= [ "stress" ];
+      interval	= 1;
+      table	= false;
+      elements	= "bulk";
+    };
+    view	=
+    {
+      snapFile	= "one-fiber%2i.png";
+      configFile	= "one-fiber.view";
+      updateWhen	= "(extraModules.view.updateLoad < 0.1) && (extraModules.view.renderLoad < 0.5)";
+      snapWhen	= false;
+      offScreen	= false;
+      camera	=
+      {
+        type	= "Perspective";
+        farClip	= 10.0000;
+        nearClip	= 0.500000;
+        viewAngle	= 40.0000;
+        position	= [ -0.00000, -0.00000, 3.00000 ];
+        zoom	= 0.00000;
+        quality	= 1;
+        autoQuality	= false;
+      };
+      disp	=
+      {
+        type	= "Vector";
+        vector	= "state";
+        nullValue	= 0.00000;
+      };
+      stress	=
+      {
+        type	= "Table";
+        table	= "nodes/stress";
+        tableType	= "Dense";
+        nullValue	= 0.00000;
+      };
+      dataSets	= [ "disp", "stress" ];
+      window	=
+      {
+        bgColor	= "white";
+        title	= "feFRAC.extraModules.view";
+        width	= 900;
+        height	= 300;
+      };
+      world	=
+      {
+        scale	= 1.00000;
+        rotmat	= [ 1.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 1.00000 ];
+        translation	= [ 0.00000, 0.00000, 0.00000 ];
+      };
+      lights	=
+      {
+        light0	=
+        {
+          color	= "white20";
+          direction	= [ -1.00000, -0.00000, -0.00000 ];
+          enable	= true;
+        };
+        light1	=
+        {
+          color	= "white20";
+          direction	= [ -0.00000, -1.00000, -0.00000 ];
+          enable	= true;
+        };
+        light2	=
+        {
+          color	= "white";
+          direction	= [ -0.00000, -0.00000, -1.00000 ];
+          enable	= true;
+        };
+        ambient	= "white20";
+      };
+      markerStyles	=
+      {
+        points	=
+        {
+          size	= 3.00000;
+          color	= "black";
+        };
+        orbs	=
+        {
+          size	= -0.0100000;
+          quality	= 1;
+          color	= "gold";
+        };
+        numbers	=
+        {
+          font	= "proportional large";
+          color	= "black";
+        };
+        circles	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        diamonds	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        discs	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        squares	=
+        {
+          size	= "large";
+          color	= "black";
+        };
+        styles	= [];
+      };
+      palettes	=
+      {
+        linear	=
+        {
+          minValue	= 0.00000;
+          maxValue	= 1.00000;
+          minColor	= "blue";
+          maxColor	= "red";
+        };
+        rainbow	=
+        {
+          minValue	= 0.00000;
+          maxValue	= 1.00000;
+        };
+        custom	=
+        {
+          colors	= [ "blue", "green", "yellow", "orange", "red" ];
+          ranges	= [ 0.00000, 0.200000, 0.400000, 0.600000, 0.800000, 1.00000 ];
+          hideMinMax	= false;
+        };
+        palettes	= [];
+      };
+      mesh	=
+      {
+        elements	= "all";
+        scale	= 1.00000;
+        rotmat	= [ 1.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 1.00000 ];
+        translation	= [ 0.00000, 0.00000, 0.00000 ];
+        material	=
+        {
+          shininess	= 0.00000;
+          specular	= "black";
+        };
+        showEdges	= true;
+        showLines	= true;
+        showFaces	= true;
+        pointSize	= 1.00000;
+        lineWidth	= 1.00000;
+        shadeModel	= "Flat";
+        color	= "gray";
+        edgeColor	= "black";
+        nodeColor	= "black";
+        hidden	= false;
+        deformation	=
+        {
+          scale	= 50.0000;
+          autoScale	= false;
+          scaleStep	= 0.100000;
+          dx	= "disp[dx]";
+          dy	= "disp[dy]";
+          dz	= "0.000";
+        };
+        colors	=
+        {
+          palette	= "custom";
+          title	= "";
+          data	= "stress[stress_xx]";
+          autoScale	= true;
+          scaleStep	= 0.100000;
+        };
+      };
+    };
+  };
+  control	=
+  {
+    prompt	= ">";
+    cmdFile	= "-";
+    fgMode	= true;
+    pause	= 0.00000;
+    runWhile	= "i < 0";
+  };
+  display	=
+  {
+    offScreen	= false;
+  };
+  input	=
+  {
+    storageMode	= "Default";
+    file	= "one-fiber.data";
+    maxParts	= 0;
+    tableFilter	= "*";
+    dbaseFilter	= "*";
+    funcFilter	= "*";
+  };
+  storageMode	= "Default";
+  shapeTable	=
+  {
+    type	= "Auto";
+    boundaryElems	= "";
+    interfaceElems	= "";
+    maxPrecision	= 0;
+  };
+  model	=
+  {
+    type	= "MP";
+    model	=
+    {
+      type	= "Matrix";
+      model	=
+      {
+        type	= "Multi";
+        models	= [ "bulk", "interface", "disp", "lodi" ];
+        bulk	=
+        {
+          type	= "Elasticity";
+          elements	= "bulk";
+          shape	=
+          {
+            type	= "Triangle3";
+            shapeFuncs	=
+            {
+              type	= "Linear";
+            };
+            intScheme	= [ "Gauss1", "Gauss2", "Gauss2", "Gauss2" ];
+          };
+          material	= [ "matrix", "fiber" ];
+          matrix	=
+          {
+            type	= "Hooke";
+            dim	= 2;
+            young	= 4000.00;
+            poisson	= 0.400000;
+            state	= 0;
+            rho	= 1.00000;
+            elements	= "matrix";
+          };
+          fiber	=
+          {
+            type	= "Hooke";
+            dim	= 2;
+            young	= 40000.0;
+            poisson	= 0.330000;
+            state	= 0;
+            rho	= 1.00000;
+            elements	= "fiber";
+          };
+          thickness	= 1.00000;
+          density	= 0.00000;
+          g	= 0.00000;
+        };
+        interface	=
+        {
+          type	= "Interface";
+          elements	= "interfaces";
+          material	= [ "mat0" ];
+          meshFile	= "one-fiber-interface.mesh";
+          shape	=
+          {
+            type	= "BLine2";
+            shapeFuncs	=
+            {
+              type	= "Linear";
+            };
+            intScheme	= "Gauss2";
+          };
+          mat0	=
+          {
+            type	= "TuronMixed";
+            dim	= 2;
+            f2t	= 10.0000;
+            f6	= 10.0000;
+            gI	= 0.0500000;
+            gII	= 0.0500000;
+            gIII	= 0.0500000;
+            eta	= 2.00000;
+            dummy	= 1.00000e+06;
+            f2t2	= 100.000;
+            elements	= "interfaces";
+          };
+          thickness	= 1.00000;
+        };
+        disp	=
+        {
+          type	= "LoadScale";
+          model	=
+          {
+            type	= "Constraints";
+            conTable	= "disp";
+          };
+          loadCase	= "disp";
+          loadScale	= 1.00000;
+          scaleFunc	= "0.0001 * (i)";
+        };
+        lodi	=
+        {
+          type	= "Lodi";
+          evalMasterDof	= false;
+        };
+      };
+      debug	= 0;
+      linear	= false;
+      matrix0	=
+      {
+        type	= "Sparse";
+        symmetric	= false;
+        optimize	= "Runtime";
+      };
+    };
+    items	= "nodes";
+    tables	= [ "*" ];
+    vectors	= [ "GET_INT_VECTOR", "intVector", "GET_EXT_VECTOR", "extVector", "UPD_MATRIX0", "intVector",
+    "GET_MATRIX0", "intVector" ];
+  };
+  init	=
+  {
+    reorder	= false;
+    vectors	= [];
+  };
+
+*** WARNING: Unknown properties:
+
+*** WARNING:   mpart
+*** WARNING:   mpart.overlap
+
+*** WARNING: Initialization phase completed with warnings.
+
+  Elapsed CPU  time : 0.2100 seconds.
+  Elapsed real time : 0.4014 seconds.
+
+Iteration       : 0
+Elapsed runtime : 1.619 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+Log file created on Tue Oct 13 16:21:02 AEDT 2020.
+
+*** WARNING: extraModules.view.mesh.faces : 152 singular triangles (ignored)
+
+module `extraModules.solver' : residual scale factor = 2.9021e-01
+module `extraModules.solver' : iter = 1, scaled residual = 6.4017e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 1
+Elapsed runtime : 12.84 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.8043e-01
+module `extraModules.solver' : iter = 1, scaled residual = 3.4391e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 2
+Elapsed runtime : 13.01 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 8.7064e-01
+module `extraModules.solver' : iter = 1, scaled residual = 2.4835e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 3
+Elapsed runtime : 13.16 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.1609e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.9591e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 4
+Elapsed runtime : 13.31 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.4511e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.7696e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 5
+Elapsed runtime : 13.45 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 1.7413e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.7103e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 6
+Elapsed runtime : 13.68 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.0315e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.5265e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 7
+Elapsed runtime : 13.83 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.3217e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.3717e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 8
+Elapsed runtime : 13.99 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.6119e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.2840e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 9
+Elapsed runtime : 14.17 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 2.9021e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.4084e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 10
+Elapsed runtime : 14.32 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.1924e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.3799e-13
+The Newton-Raphson solver converged in 1 iterations
+
+Iteration       : 11
+Elapsed runtime : 14.47 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.4827e+00
+module `extraModules.solver' : iter = 1, scaled residual = 9.7133e-03
+module `extraModules.solver' : iter = 2, scaled residual = 5.9492e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.8402e-03
+module `extraModules.solver' : iter = 4, scaled residual = 6.9150e-04
+module `extraModules.solver' : iter = 5, scaled residual = 7.5957e-05
+module `extraModules.solver' : iter = 6, scaled residual = 1.3057e-08
+The Newton-Raphson solver converged in 6 iterations
+
+Iteration       : 12
+Elapsed runtime : 15.19 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.7024e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.8327e-02
+module `extraModules.solver' : iter = 2, scaled residual = 7.0369e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.7243e-03
+module `extraModules.solver' : iter = 4, scaled residual = 1.1726e-04
+module `extraModules.solver' : iter = 5, scaled residual = 4.1997e-08
+The Newton-Raphson solver converged in 5 iterations
+
+Iteration       : 13
+Elapsed runtime : 15.81 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 3.8818e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.5925e-02
+module `extraModules.solver' : iter = 2, scaled residual = 5.4991e-03
+module `extraModules.solver' : iter = 3, scaled residual = 8.1944e-04
+module `extraModules.solver' : iter = 4, scaled residual = 2.0452e-06
+The Newton-Raphson solver converged in 4 iterations
+
+Iteration       : 14
+Elapsed runtime : 16.29 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.0464e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.2838e-02
+module `extraModules.solver' : iter = 2, scaled residual = 5.6746e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.5020e-03
+module `extraModules.solver' : iter = 4, scaled residual = 6.4429e-06
+The Newton-Raphson solver converged in 4 iterations
+
+Iteration       : 15
+Elapsed runtime : 16.76 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.2012e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.1725e-02
+module `extraModules.solver' : iter = 2, scaled residual = 4.2659e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.5780e-03
+module `extraModules.solver' : iter = 4, scaled residual = 9.2143e-05
+module `extraModules.solver' : iter = 5, scaled residual = 5.5669e-08
+The Newton-Raphson solver converged in 5 iterations
+
+Iteration       : 16
+Elapsed runtime : 17.35 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.3469e+00
+module `extraModules.solver' : iter = 1, scaled residual = 9.0020e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.1779e-03
+module `extraModules.solver' : iter = 3, scaled residual = 7.0023e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 17
+Elapsed runtime : 17.75 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.4887e+00
+module `extraModules.solver' : iter = 1, scaled residual = 9.8362e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.5912e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.8941e-05
+module `extraModules.solver' : iter = 4, scaled residual = 1.9688e-09
+The Newton-Raphson solver converged in 4 iterations
+
+Iteration       : 18
+Elapsed runtime : 18.21 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.6238e+00
+module `extraModules.solver' : iter = 1, scaled residual = 8.9277e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.1523e-03
+module `extraModules.solver' : iter = 3, scaled residual = 2.6533e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 19
+Elapsed runtime : 18.57 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.7550e+00
+module `extraModules.solver' : iter = 1, scaled residual = 6.3729e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.4656e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.7718e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 20
+Elapsed runtime : 18.94 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 4.8847e+00
+module `extraModules.solver' : iter = 1, scaled residual = 6.9548e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.3091e-03
+module `extraModules.solver' : iter = 3, scaled residual = 4.0240e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 21
+Elapsed runtime : 19.30 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.0114e+00
+module `extraModules.solver' : iter = 1, scaled residual = 6.9337e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.6732e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.0504e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 22
+Elapsed runtime : 19.68 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.1359e+00
+module `extraModules.solver' : iter = 1, scaled residual = 5.5785e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.1559e-03
+module `extraModules.solver' : iter = 3, scaled residual = 6.6926e-07
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 23
+Elapsed runtime : 20.05 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.2589e+00
+module `extraModules.solver' : iter = 1, scaled residual = 4.0515e-03
+module `extraModules.solver' : iter = 2, scaled residual = 7.2999e-06
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 24
+Elapsed runtime : 20.31 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.3818e+00
+module `extraModules.solver' : iter = 1, scaled residual = 5.2403e-03
+module `extraModules.solver' : iter = 2, scaled residual = 1.5469e-03
+module `extraModules.solver' : iter = 3, scaled residual = 1.0807e-06
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 25
+Elapsed runtime : 20.69 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.5023e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.5441e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.4302e-06
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 26
+Elapsed runtime : 20.95 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.6236e+00
+module `extraModules.solver' : iter = 1, scaled residual = 4.1259e-03
+module `extraModules.solver' : iter = 2, scaled residual = 6.2734e-06
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 27
+Elapsed runtime : 21.21 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.7438e+00
+module `extraModules.solver' : iter = 1, scaled residual = 4.2252e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.5139e-04
+module `extraModules.solver' : iter = 3, scaled residual = 6.0630e-09
+The Newton-Raphson solver converged in 3 iterations
+
+Iteration       : 28
+Elapsed runtime : 21.61 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.8633e+00
+module `extraModules.solver' : iter = 1, scaled residual = 3.2735e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.1155e-07
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 29
+Elapsed runtime : 21.87 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 5.9831e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.9035e-03
+module `extraModules.solver' : iter = 2, scaled residual = 4.0407e-08
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 30
+Elapsed runtime : 22.14 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 6.1026e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.7196e-03
+module `extraModules.solver' : iter = 2, scaled residual = 2.5662e-07
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 31
+Elapsed runtime : 22.43 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 6.2221e+00
+module `extraModules.solver' : iter = 1, scaled residual = 2.9383e-03
+module `extraModules.solver' : iter = 2, scaled residual = 9.0485e-08
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 32
+Elapsed runtime : 22.71 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 6.3415e+00
+module `extraModules.solver' : iter = 1, scaled residual = 1.9787e-03
+module `extraModules.solver' : iter = 2, scaled residual = 8.1674e-08
+The Newton-Raphson solver converged in 2 iterations
+
+Iteration       : 33
+Elapsed runtime : 22.97 seconds
+
+Starting the Newton-Raphson solver `extraModules.solver' ...
+module `extraModules.solver' : residual scale factor = 6.4608e+00
+module `extraModules.solver' : iter = 1, scaled residual = 6.3029e-05

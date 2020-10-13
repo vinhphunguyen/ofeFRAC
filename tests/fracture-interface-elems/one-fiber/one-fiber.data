@@ -1,0 +1,26 @@
+
+<!-- Include the finite element mesh data from another file -->
+
+<Include source="one-fiber.mesh"/>
+
+<!-- Define the constraints (supports). -->
+
+<NodeConstraints>
+
+  dx[left] = 0.0;
+  dy[node1] = 0.0;
+
+</NodeConstraints>
+
+<!-- Define a table with external loads -->
+
+<NodeTable name="disp">
+
+  <Section columns="dx">
+
+    right  1.0;
+
+  </Section>
+
+</NodeTable>
+

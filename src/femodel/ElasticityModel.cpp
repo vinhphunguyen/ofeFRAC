@@ -155,8 +155,9 @@ class ElasticityModel : public Model
   
   void                 getStress_
 
-    ( const Properties&       globdat,
-      const Vector&           disp  );
+   ( XTable&        table,
+     const Vector&  weights,
+     const Vector&  disp );
 
 
  private:
@@ -880,32 +881,7 @@ bool ElasticityModel::getTable_
 
     StateVector::get ( disp, dofs_, globdat );
   
-    if ( outNode_ != -1 )
-    {
-      int ndof  = dofs_->typeCount();
-
-      Vector       state;
-      IdxVector    jtypes ( ndof );
-      int          dof;
-
-      StateVector::get ( state, dofs_, globdat );
-
-      for ( int i = 0; i < ndof; i++ ) jtypes[i] = i;
-
-      for ( int i = 0; i < ndof; i++ )
-      {
-        dof = dofs_->findDofIndex ( outNode_, jtypes[i] );
-
-        print ( *out_, state[dof] );
-        print ( *out_, "   " );
-      }
-
-      double  sigmaXX = table->getValue ( outNode_, 0 );
-
-      print ( *out_, sigmaXX );
-      out_->printLine();
-      out_->flush();
-    }
+    getStress_ ( *table, weights, disp );
 
     return true;
   }
@@ -1089,33 +1065,81 @@ void ElasticityModel::getHistory_
 
 void ElasticityModel::getStress_
 
-  ( const Properties&   globdat,
-    const Vector&       disp )
+  ( XTable&        table,
+    const Vector&  weights,
+    const Vector&  disp )
 
 {
   using jem::numeric::matmul;
 
+  Matrix     sfuncs     = shape_->getShapeFunctions ();
+
   Cubix      grads      ( rank_, nodeCount_, ipCount_ );
 
-  Vector     stressIp   ( strCount_ );
-  Vector     ipWeights  ( ipCount_   );
+
+  Matrix     ndStress   ( nodeCount_, strCount_ );
+  Vector     ndWeights  ( nodeCount_ );
 
   Matrix     coords     ( rank_, nodeCount_ );
   Matrix     gcoords    ( rank_, ipCount_   );
+
   Vector     elemDisp   ( dofCount_ );
+  Vector     ipWeights  ( ipCount_   );
   
-  Vector     gipCoords  ( 2 * ielemCount_ );
-  Vector     ipSigmaXX  ( 2 * ielemCount_ ); 
+
+  Vector     stressIp   ( strCount_ );
+  Vector     strainIp   ( strCount_ );
 
   Matrix     b          ( strCount_, dofCount_ );
 
   IdxVector  inodes     ( nodeCount_ );
   IdxVector  idofs      ( dofCount_ );
+  IdxVector  jcols      ( strCount_  );
 
   MChain2    mc2;
 
   Ref<Material>       eMat;
   idx_t               iMat, ig(0);
+
+  // Add the columns for the stress components to the table.
+
+  switch ( strCount_ )
+  {
+  case 1:
+
+    jcols[0] = table.addColumn ( "stress_xx" );
+
+    break;
+
+  case 4:
+
+    jcols[0] = table.addColumn ( "stress_xx" );
+    jcols[1] = table.addColumn ( "stress_yy" );
+    jcols[2] = table.addColumn ( "stress_zz" );
+    jcols[3] = table.addColumn ( "stress_xy" );
+
+    break;
+
+  case 6:
+
+    jcols[0] = table.addColumn ( "stress_xx" );
+    jcols[1] = table.addColumn ( "stress_yy" );
+    jcols[2] = table.addColumn ( "stress_zz" );
+    jcols[3] = table.addColumn ( "stress_xy" );
+    jcols[4] = table.addColumn ( "stress_yz" );
+    jcols[5] = table.addColumn ( "stress_xz" );
+
+    break;
+
+  default:
+
+    throw Error (
+      JEM_FUNC,
+      "unexpected number of stress components: " +
+      String ( strCount_ )
+    );
+  }
+
 
   // Iterate over all elements assigned to this model.
 
@@ -1131,8 +1155,7 @@ void ElasticityModel::getStress_
     nodes_.getSomeCoords ( coords, inodes );
     dofs_->getDofIndices ( idofs,  inodes, dofTypes_ );
 
-    shape_->getShapeGradients           ( grads, ipWeights, coords );
-    shape_->getGlobalIntegrationPoints  ( gcoords, coords );	
+    shape_->getShapeGradients  ( grads, ipWeights, coords );
 
     // Get the displacements in the nodes of this element.
 
@@ -1144,19 +1167,30 @@ void ElasticityModel::getStress_
     iMat    = elemMatMap_[ielem];
     eMat    = materials_[iMat];
 
-    for ( idx_t ip = 0; ip < 2; ip++, ig++ )
+    ndStress  = 0.0;
+    ndWeights = 0.0;
+
+    for ( idx_t ip = 0; ip < ipCount_; ip++, ig++ )
     {
       getShapeGrads_ ( b, grads(ALL,ALL,ip) );
 
-      eMat->update ( stressIp, stiff0_, matmul(b,elemDisp), 0  );
+      matmul         ( strainIp, b, elemDisp );
 
-      ipSigmaXX[ig] = stressIp[0];
-      gipCoords[ig] = gcoords(0,ip);
+      eMat->update ( stressIp, stiff0_, strainIp, 0  );
+
+
+      ndStress  += matmul ( sfuncs(ALL,ip), stressIp );
+      ndWeights += sfuncs(ALL,ip);
     }
+
+    select ( weights, inodes ) += ndWeights;
+
+    // Add the stresses to the table.
+
+    table.addBlock ( inodes, jcols, ndStress );
+
   }
 
-  globdat.set ( "elasticity.gCoords", gipCoords );
-  globdat.set ( "elasticity.iSigmaX", ipSigmaXX );
 }
 
 
