@@ -108,6 +108,7 @@ Ref<Module> mainModule ()
   //chain->pushBack ( newInstance<MeshpartModule>  ( ) );  // partition mesh into blocks
 
   chain->pushBack ( newInstance<ShapeModule>     ( ) );
+  chain->pushBack ( newInstance<InitModule>      ( ) );
   chain->pushBack ( newInstance<InfoModule>      ( ) );
 
   // add user defined modules. This allows flexible input since the above is
